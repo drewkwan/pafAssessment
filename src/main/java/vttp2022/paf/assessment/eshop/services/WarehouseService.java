@@ -8,7 +8,7 @@ public class WarehouseService {
 	// You cannot change the method's signature
 	// You may add one or more checked exceptions
 	public OrderStatus dispatch(Order order) {
-
+		return null;
 		// TODO: Task 4
 
 	}

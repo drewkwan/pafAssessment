@@ -4,6 +4,13 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.jdbc.support.rowset.SqlRowSet;
+
+import jakarta.json.Json;
+import jakarta.json.JsonArray;
+import jakarta.json.JsonArrayBuilder;
+import jakarta.json.JsonObject;
+
 // DO NOT CHANGE THIS CLASS
 public class Order {
 
@@ -53,5 +60,28 @@ public class Order {
 	public List<LineItem> getLineItems() { return this.lineItems; }
 	public void setLineItems(List<LineItem> lineItems) { this.lineItems = lineItems; }
 	public void addLineItem(LineItem lineItem) { this.lineItems.add(lineItem); }
+
+	public JsonObject toJson() {
+
+		//build the lineItems
+		JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+		for (LineItem li: lineItems) {
+			arrayBuilder.add(li.toJson());
+		}
+
+		JsonArray lineItemsJson = arrayBuilder.build();
+		
+		return Json.createObjectBuilder()
+				.add("orderId", getOrderId())
+				.add("name", getName())
+				.add("email", getEmail())
+				.add("lineItems", lineItemsJson)
+				.add("createdBy", "Kwan Yi-Hao, Andrew")
+				.build();
+
+	}
+
+	
+
 }
 
